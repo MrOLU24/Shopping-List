@@ -7,24 +7,24 @@ const items = ref([
   { id: 2, label: "2 board games" },
   { id: 3, label: "20 cups" },
 ]);
-const priority = ref("high");
-
+const newItem = ref("");
+const highPriority = ref(false);
 </script>
 
 <template>
   <h1>{{ header }}</h1>
-  <input type="text" />
-  <button>Add</button>
-<label for="priority">
-  High:
-  <input v-model="priority" type="radio">
-</label>
-<label for="">
-  Low:
-  <input v-model="priority" type="radio">
-</label>
+  <form class="add-item-form" v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })">
+  <input type="text" v-on:keyup.enter="items.push({ id: items.length + 1, label: newItem })" v-model.trim="newItem" placeholder="add new items" />
+  <label>
+    <input type="checkbox" v-model="highPriority" value="high" />
+    High Priority
+  </label>
+  <button class="btn btn-primary">
+    save Items
+  </button>
+</form>
 
-  <ul v-for="({id, label}, index) in items" :key="id">
+  <ul v-for="({ id, label }, index) in items" :key="id">
     <li>{{ label }}</li>
   </ul>
 </template>
