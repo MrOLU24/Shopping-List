@@ -16,7 +16,7 @@ const items = ref([
 const newItem = ref("");
 
 // Boolean ref to mark high-priority items (currently not used)
-const highPriority = ref(false);
+const newHighPriority = ref(false);
 
 // Function to add new items to the list
 const saveItems = () => {
@@ -27,14 +27,17 @@ const saveItems = () => {
   items.value.push({
     id: Date.now(), // Ensures a unique ID
     label: newItem.value,
+    highPriority: newHighPriority.value
   });
 
   // Clear input after adding
   newItem.value = "";
+  newHighPriority.value = ""
 };
 const doEdit = (e) => {
   editing.value = e;
   newItem.value = "";
+  newHighPriority
 };
 
 const togglePurchased = (item) => {
@@ -57,7 +60,7 @@ const togglePurchased = (item) => {
 
     <!-- Checkbox for high priority (not currently used in logic) -->
     <label>
-      <input type="checkbox" v-model="highPriority" value="high" />
+      <input type="checkbox" v-model="newHighPriority" value="high" />
       High Priority
     </label>
 
@@ -68,11 +71,11 @@ const togglePurchased = (item) => {
   <!-- List of Items -->
   <ul>
     <li
-    @click="togglePurchased(items)"
-      v-for="( items, index) in items"
+      @click="togglePurchased(items)"
+      v-for="(items, index) in items"
       :key="items.id"
       class="static-class"
-      :class="{ strikeout: items.purchased, priority: items.highPriority }"
+      :class="{ strikeout: items.purchased, priority: items.highPriority}"
     >
       {{ items.label }}
     </li>
