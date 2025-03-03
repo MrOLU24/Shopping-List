@@ -7,9 +7,9 @@ const editing = ref(false);
 
 // Array holding shopping list items, each item has an id and label
 const items = ref([
-  // { id: 1, label: "10 party hats" },
-  // { id: 2, label: "2 board games" },
-  // { id: 3, label: "20 cups" },
+  { id: 1, label: "10 party hats", purchased: true, highPriority: false },
+  { id: 2, label: "2 board games", purchased: true, highPriority: false },
+  { id: 3, label: "20 cups", purchased: false, highPriority: true },
 ]);
 
 // Ref for new item input
@@ -21,7 +21,7 @@ const highPriority = ref(false);
 // Function to add new items to the list
 const saveItems = () => {
   // Prevent adding empty items
-  // if (!newItem.value.trim()) return;
+  if (!newItem.value.trim()) return;
 
   // Add the new item to the list with a unique ID
   items.value.push({
@@ -35,6 +35,10 @@ const saveItems = () => {
 const doEdit = (e) => {
   editing.value = e;
   newItem.value = "";
+};
+
+const togglePurchased = (item) => {
+  item.purchased = !item.purchased;
 };
 </script>
 
@@ -63,8 +67,14 @@ const doEdit = (e) => {
 
   <!-- List of Items -->
   <ul>
-    <li v-for="({ id, label }, index) in items" :key="id">
-      {{ label }}
+    <li
+    @click="togglePurchased(items)"
+      v-for="( items, index) in items"
+      :key="items.id"
+      class="static-class"
+      :class="{ strikeout: items.purchased, priority: items.highPriority }"
+    >
+      {{ items.label }}
     </li>
   </ul>
   <p v-if="!items.length">Nothing to show</p>
