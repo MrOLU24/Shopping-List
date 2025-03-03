@@ -7,6 +7,9 @@ const editing = ref(false);
 const characterCount = computed(() => {
   return newItem.value.length;
 });
+const reverseitem = computed(()=>{
+  return [...items.value].reverse()
+})
 // Array holding shopping list items, each item has an id and label
 const items = ref([
   { id: 1, label: "10 party hats", purchased: true, highPriority: false },
@@ -73,7 +76,7 @@ const togglePurchased = (item) => {
   <ul>
     <li
       @click="togglePurchased(items)"
-      v-for="(items, index) in items"
+      v-for="(items, index) in reverseitem"
       :key="items.id"
       class="static-class"
       :class="{ strikeout: items.purchased, priority: items.highPriority }"
