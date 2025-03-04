@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 
-// Reactive reference for the list header
+// Reactive reference for the list header.
 const header = ref("Shopping List");
 const editing = ref(false);
 const characterCount = computed(() => {
