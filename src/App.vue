@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 
 // Reactive reference for the list header.
+
 const header = ref("Shopping List");
 const editing = ref(false);
 const characterCount = computed(() => {
@@ -10,7 +11,9 @@ const characterCount = computed(() => {
 const reverseitem = computed(()=>{
   return [...items.value].reverse()
 })
-// Array holding shopping list items, each item has an id and label
+
+// Array holding shopping list items, each item has an id and label.
+
 const items = ref([
   { id: 1, label: "10 party hats", purchased: true, highPriority: false },
   { id: 2, label: "2 board games", purchased: true, highPriority: false },
